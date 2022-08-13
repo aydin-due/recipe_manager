@@ -6,13 +6,16 @@ import random
 def home_view(request):
 
     num = random.randint(1,3)
-    article1 = Article.objects.get(id=num)
+    article = Article.objects.get(id=num)
 
-    h1_str = f"""
-    <h1>{article1.title}</h1>
-    """
-    p_str = f"""
-    <p>{article1.content}</p>
-    """
-    htmlpage = h1_str + p_str
+    context = {
+        'title': article.title,
+        'content': article.content,
+        'id': article.id
+    }
+
+    htmlpage = """
+    <h1>{title} (id: {id})</h1>
+    <p>{content}</p>
+    """.format(**context)
     return HttpResponse(htmlpage)
