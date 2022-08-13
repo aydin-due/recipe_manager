@@ -5,10 +5,8 @@ from django.template.loader import render_to_string
 import random 
 
 def home_view(request):
-
     num = random.randint(1,3)
     article = Article.objects.get(id=num)
-    my_list = [12,23,4,5,67,45,23,56]
     articles = Article.objects.all()
 
     context = {
