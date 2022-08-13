@@ -1,15 +1,18 @@
 # render html web pages
 from django.http import HttpResponse
-import random
+from articles.models import Article
+import random 
 
 def home_view(request):
-    name = 'tomasito'
-    num = random.randint(0,1000)
+
+    num = random.randint(1,3)
+    article1 = Article.objects.get(id=num)
+
     h1_str = f"""
-    <h1>Hello {name}!</h1>
+    <h1>{article1.title}</h1>
     """
     p_str = f"""
-    <p>{num} visits today</p>
+    <p>{article1.content}</p>
     """
     htmlpage = h1_str + p_str
     return HttpResponse(htmlpage)
