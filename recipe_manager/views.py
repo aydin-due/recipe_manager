@@ -8,12 +8,15 @@ def home_view(request):
 
     num = random.randint(1,3)
     article = Article.objects.get(id=num)
+    my_list = [12,23,4,5,67,45,23,56]
+    articles = Article.objects.all()
 
     context = {
+        'articles': articles,
         'title': article.title,
         'content': article.content,
         'id': article.id
     }
-    
+
     htmlpage = render_to_string('home_view.html', context=context)
     return HttpResponse(htmlpage)
