@@ -6,5 +6,5 @@ htmlpage = """
 <h1>Hello World</h1>
 """
 
-def home(request):
+def home_view(request):
     return HttpResponse(htmlpage)
