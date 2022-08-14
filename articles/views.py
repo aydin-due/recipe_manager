@@ -25,3 +25,8 @@ def article_search_view(request):
         'article': article
     }
     return render(request, 'articles/search.html', context=context)
+
+# @csrf_exempt override security rules
+def article_create_view(request):
+    context = {}
+    return render(request, 'articles/create.html', context=context)
