@@ -29,4 +29,11 @@ def article_search_view(request):
 # @csrf_exempt override security rules
 def article_create_view(request):
     context = {}
+    # print(request.POST)
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        article = Article.objects.create(title=title, content=content)
+        context['article'] = article
+        context['created'] = True
     return render(request, 'articles/create.html', context=context)

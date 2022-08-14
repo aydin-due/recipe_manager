@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div style="margin-top: 30px;">
-    <form action="." method="POST">
-        <input type="text" name="title" placeholder="Title"/>
-        <div style="margin-top: 10px; margin-bottom: 10px;">
-            <textarea name="content" placeholder="Content"></textarea>
-        </div>
-        
-        <button type="submit">Create article</button>
-    </form>
-</div>
+{% if not created %}
+    <div style="margin-top: 30px;">
+        <form action="." method="POST">
+            {% csrf_token %}
+            <input type="text" name="title" placeholder="Title"/>
+            <div style="margin-top: 10px; margin-bottom: 10px;">
+                <textarea name="content" placeholder="Content"></textarea>
+            </div>
+            
+            <button type="submit">Create article</button>
+        </form>
+    </div>
+{% else %}
+<p>Your article was created</p>
+<li><a href="/articles/{{ article.id }}">{{ article.title }} - {{ article.content }}</a></li>
+{% endif %}
 {% endblock content %}
