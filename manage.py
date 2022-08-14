@@ -7,7 +7,7 @@ import pathlib
 
 def main():
     """Run administrative tasks."""
-    # to read .env regardless of its location, also doesn't run if it doesn't exists
+    # to read .env regardless of its location, also doesn't run if it doesn't exist
     # DOT_ENV_PATH = pathlib.Path() / '.env'
     # if DOT_ENV_PATH.exists():
     #     dotenv.read_dotenv(str(DOT_ENV_PATH))
