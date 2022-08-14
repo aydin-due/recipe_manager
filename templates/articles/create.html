@@ -5,11 +5,7 @@
     <div style="margin-top: 30px;">
         <form action="." method="POST">
             {% csrf_token %}
-            <input type="text" name="title" placeholder="Title"/>
-            <div style="margin-top: 10px; margin-bottom: 10px;">
-                <textarea name="content" placeholder="Content"></textarea>
-            </div>
-            
+            {{ form.as_p }}
             <button type="submit">Create article</button>
         </form>
     </div>
