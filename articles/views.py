@@ -31,18 +31,14 @@ def article_search_view(request):
 # @csrf_exempt override security rules
 @login_required
 def article_create_view(request):
-    # print(dir(ArticleForm()))
+    form = ArticleForm(request.POST or None) # acts as a get method, value is None if there's no request.POST
     context = {
-        'form': ArticleForm()
+        'form': form
     }
-    # print(request.POST)
-    if request.method == "POST":
-        form = ArticleForm(request.POST)
-        context['form'] = form # stores form validation error
-        if form.is_valid():
-            title = form.cleaned_data.get("title")
-            content = form.cleaned_data.get("content")
-            article = Article.objects.create(title=title, content=content)
-            context['article'] = article
-            context['created'] = True
+    if form.is_valid():
+        title = form.cleaned_data.get("title")
+        content = form.cleaned_data.get("content")
+        article = Article.objects.create(title=title, content=content)
+        context['article'] = article
+        context['created'] = True
     return render(request, 'articles/create.html', context=context)
