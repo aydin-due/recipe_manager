@@ -10,3 +10,18 @@ def article_detail_view(request, id=None):
         'article': article
     }
     return render(request, 'articles/details.html', context=context)
+
+def article_search_view(request):
+    # print(dir(request))
+    query_dict = request.GET
+    article = None
+    try:
+        query = int(query_dict.get("q"))
+    except:
+        query = None
+    if query:
+        article = Article.objects.get(id=query)
+    context = {
+        'article': article
+    }
+    return render(request, 'articles/search.html', context=context)

@@ -4,6 +4,10 @@
 
     </head>
     <body>
+        <form action="/articles/", method="GET"> 
+            <input type="text" name="q"/>
+            <input type="submit"/>
+        </form>
         {% block content %}
         {% endblock content %}
     </body>

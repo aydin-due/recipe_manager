@@ -22,5 +22,6 @@ urlpatterns = [
     path('', home_view), #index
     path('articles/<int:id>/', views.article_detail_view),
     # re_path(r'articles/(?P<id>\d+)/$', home_view) // older versions
+    path('articles/', views.article_search_view),
     path('admin/', admin.site.urls),
 ]
