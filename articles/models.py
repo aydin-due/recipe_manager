@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.signals import pre_save, post_save
 from django.utils import timezone
 from django.utils.text import slugify
 
@@ -15,8 +16,25 @@ class Article(models.Model):
     def save(self, *args, **kwargs):
         # obj = Article.object.get(id=1)
         # set something
-        if self.slug is None:
-            self.slug = slugify(self.title)
+        # if self.slug is None:
+        #     self.slug = slugify(self.title)
         super().save(*args, **kwargs)
         # obj.save()
         # do something
+
+def article_pre_save(sender, instance, *args, **kwargs):
+    print('presave')
+    print(sender, instance)
+    if instance.slug is None:
+        instance.slug = slugify(instance.title)
+
+def article_post_save(sender, instance, created, *args, **kwargs):
+    print('postsave')
+    print(args, kwargs)
+    if created:
+        instance.slug = 'this is my slug'
+        instance.save()
+
+
+pre_save.connect(article_pre_save, sender=Article)
+post_save.connect(article_post_save, sender=Article)
