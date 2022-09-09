@@ -25,10 +25,10 @@ def article_detail_view(request, slug=None):
 def article_search_view(request):
     # print(dir(request))
     query = request.GET.get('q')
-    qs = Article.objects.all()
-    if query:
-        lookups = Q(title__icontains=query) | Q(content__icontains=query)
-        qs = Article.objects.filter(lookups)
+    # qs = Article.objects.all()
+        # lookups = Q(title__icontains=query) | Q(content__icontains=query)
+        # qs = Article.objects.filter(lookups)
+    qs = Article.objects.search(query=query)
     context = {
         'articles': qs
     }
