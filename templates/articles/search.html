@@ -4,5 +4,6 @@
     {% if article %}
         <h1>{{ article.title }}</h1>
         <p>{{ article.content }}</p>
+        <p>{{ article.get_absolute_url }}</p>
     {% endif %}
 {% endblock content %}
