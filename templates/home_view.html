@@ -3,10 +3,13 @@
 {% block content %}
 <h1>{{ title }} (id: {{ id }})</h1>
 <p>{{ content }}</p>
+<a href="{% url 'article-create' %}">Create article</a>
 <ul>
     {% for article in articles %}
         {% if article.title %}
             <li><a href='{{ article.get_absolute_url }}'>{{ article.title }} - {{ article.content }}</a></li>
+            <!-- <li><a href='{% url "article-detail" slug=article.slug %}'>{{ article.title }} - {{ article.content }}</a></li> -->
+
         {% endif %}
     {% endfor %}
 </ul>
