@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.db.models import Q
 from .models import Article
 from .forms import ArticleForm
 
@@ -23,16 +24,13 @@ def article_detail_view(request, slug=None):
 
 def article_search_view(request):
     # print(dir(request))
-    query_dict = request.GET
-    article = None
-    try:
-        query = int(query_dict.get("q"))
-    except:
-        query = None
+    query = request.GET.get('q')
+    qs = Article.objects.all()
     if query:
-        article = Article.objects.get(id=query)
+        lookups = Q(title__icontains=query) | Q(content__icontains=query)
+        qs = Article.objects.filter(lookups)
     context = {
-        'article': article
+        'articles': qs
     }
     return render(request, 'articles/search.html', context=context)
 

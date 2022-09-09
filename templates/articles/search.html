@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if article %}
-        <h1>{{ article.title }}</h1>
-        <p>{{ article.content }}</p>
-        <p>{{ article.get_absolute_url }}</p>
-    {% endif %}
+<ol>
+    {% for article in articles %}
+        {% if article.title %}
+            <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+            <!-- <p>{{ article.content }}</p> -->
+        {% endif %}
+    {% endfor %}
+</ol>
 {% endblock content %}
