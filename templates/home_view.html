@@ -6,7 +6,7 @@
 <ul>
     {% for article in articles %}
         {% if article.title %}
-            <li><a href="/articles/{{ article.id }}">{{ article.title }} - {{ article.content }}</a></li>
+            <li><a href="/articles/{{ article.slug }}">{{ article.title }} - {{ article.content }}</a></li>
         {% endif %}
     {% endfor %}
 </ul>
