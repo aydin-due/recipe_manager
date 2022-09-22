@@ -17,7 +17,7 @@ class RecipeIngredient(models.Model):
     description = models.TextField(blank=True, null=True)
     quantity = models.CharField(max_length=50)
     unit = models.CharField(max_length=50)
-    directions = models.DateTimeField(auto_now_add=True)
+    directions = models.CharField(max_length=228, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
