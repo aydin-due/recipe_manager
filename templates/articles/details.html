@@ -2,5 +2,6 @@
 
 {% block content %}
 <h1>{{ article.title }}</h1>
+<p>Author: {{ article.user }} {% if request.user == article.user %} dis u {% endif %}</p>
 <p>{{ article.content }}</p>
 {% endblock content %}
