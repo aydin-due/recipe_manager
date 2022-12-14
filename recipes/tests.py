@@ -27,6 +27,12 @@ class RecipeTestCase(TestCase):
             quantity='1/2',
             unit='pound',
         )
+        self.recipe_ingredient2 = RecipeIngredient.objects.create(
+            recipe=self.recipe_a,
+            name='Chicken',
+            quantity='skfs',
+            unit='pound',
+        )
 
     def test_user_count(self):
         qs = User.objects.all()
@@ -45,24 +51,24 @@ class RecipeTestCase(TestCase):
     def test_recipe_ingredient_forward_count(self):
         recipe = self.recipe_a
         qs = RecipeIngredient.objects.filter(recipe=recipe)
-        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs.count(), 2)
 
     def test_user_two_level_relation_reverse(self):
         user = self.user_a
         recipe_ingredient_ids = list(user.recipe_set.all().values_list('recipeingredient__id', flat=True))
         qs = RecipeIngredient.objects.filter(id__in=recipe_ingredient_ids)
-        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs.count(), 2)
 
     def test_user_two_level_relation(self):
         user = self.user_a
         qs = RecipeIngredient.objects.filter(recipe__user=user)
-        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs.count(), 2)
 
     def test_user_two_level_relation_via_recipe(self):
         user = self.user_a
         ids = user.recipe_set.all().values_list('id', flat=True)
         qs = RecipeIngredient.objects.filter(recipe__id__in=ids)
-        self.assertEqual(qs.count(), 1)
+        self.assertEqual(qs.count(), 2)
     
     def test_unit_validation_error(self):
         invalid_units = ['jdks', 'asdsf']
@@ -85,3 +91,7 @@ class RecipeTestCase(TestCase):
             unit=valid_unit,
         )
         ingredient.full_clean() # validates all fields
+    
+    def test_quantity_as_float(self):
+        self.assertIsNotNone(self.recipe_ingredient.quantity_as_float)
+        self.assertIsNone(self.recipe_ingredient2.quantity_as_float)

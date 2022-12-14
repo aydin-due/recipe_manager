@@ -21,6 +21,7 @@ class RecipeIngredientInline(admin.StackedInline):
     model = RecipeIngredient
     # fields = ['name', 'quantity', 'unit', 'directions']
     extra = 0
+    readonly_fields = ['quantity_as_float']
 
 class RecipeAdmin(admin.ModelAdmin):
     inlines = [RecipeIngredientInline]
